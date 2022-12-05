@@ -130,3 +130,7 @@ dmypy.json
 
 # DS _STORE
 .DS_Store
+
+# Swift
+.build/
+.swiftpm/
