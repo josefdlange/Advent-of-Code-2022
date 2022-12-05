@@ -41,16 +41,15 @@ class CleaningAssignment {
 }
 
 class CampCleanup: CodeChallenge {
-    
     var assignmentPairs: [(CleaningAssignment, CleaningAssignment)] = []
     
-    init(fromDataFile fileName: String = "2022-12-04") {
-        super.init()
-        self.loadAssignments(withFile: fileName)
+    override init(fromDataFile fileName: String = "2022-12-04") {
+        super.init(fromDataFile: fileName)
+        
     }
     
-    func loadAssignments(withFile fileName : String) {
-        guard let data = self.loadLineDataFromFile(withName: fileName) else {
+    func loadAssignments() {
+        guard let data = self.loadLineDataFromFile(withName: self.dataFileName) else {
             return
         }
         
@@ -80,6 +79,8 @@ class CampCleanup: CodeChallenge {
     }
     
     override func runChallenge() {
+        self.loadAssignments()
+        
         print("===================================")
         print("2022-12-04: Camp Cleanup")
         print("===================================")

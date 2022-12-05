@@ -8,9 +8,13 @@
 import Foundation
 
 class CodeChallenge {
+    var dataFileName: String = ""
+    
+    init(fromDataFile fileName: String) {
+        self.dataFileName = fileName
+    }
+    
     func loadLineDataFromFile(withName fileName: String, ofType fileType: String = "txt") -> String? {
-        print("Loading input data")
-        
         guard let resource = Bundle.module.path(forResource: fileName, ofType: fileType, inDirectory: nil) else {
             print("Resource \(fileName).\(fileType) not found!")
             return nil

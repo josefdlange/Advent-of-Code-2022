@@ -81,9 +81,8 @@ class ElfRockPaperScissors : CodeChallenge {
     var naiveStrategyGuide: [[Move]] = []
     var roundOutcomeStrategyGuide: [(Move, Outcome)] = []
     
-    init(fromDataFile fileName: String = "2022-12-02") {
-        super.init()
-        self.loadGuide(withFile: fileName)
+    override init(fromDataFile fileName: String = "2022-12-02") {
+        super.init(fromDataFile: fileName)
     }
     
     func getMove(forGuideValue guideValue: String) -> Move? {
@@ -120,8 +119,8 @@ class ElfRockPaperScissors : CodeChallenge {
         return myMove.scoreForPlaying() + (myMove > theirMove ? 6 : (myMove == theirMove ? 3 : 0))
     }
     
-    func loadGuide(withFile fileName: String) {
-        guard let data = self.loadLineDataFromFile(withName: fileName) else {
+    func loadGuide() {
+        guard let data = self.loadLineDataFromFile(withName: self.dataFileName) else {
             print("Data not found!")
             return
         }
@@ -160,6 +159,8 @@ class ElfRockPaperScissors : CodeChallenge {
     }
     
     override func runChallenge() {
+        self.loadGuide()
+        
         print("===================================")
         print("2022-12-02: Elf Rock/Paper/Scissors")
         print("===================================")

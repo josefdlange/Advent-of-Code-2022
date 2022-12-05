@@ -21,13 +21,12 @@ struct Elf {
 class ElfCalories : CodeChallenge {
     var elves : [Elf] = []
     
-    init(fromDataFile fileName: String = "2022-12-01") {
-        super.init()
-        self.loadElves(withFile: fileName)
+    override init(fromDataFile fileName: String = "2022-12-01") {
+        super.init(fromDataFile: fileName)
     }
     
-    func loadElves (withFile fileName : String) {
-        guard let data = self.loadLineDataFromFile(withName: fileName) else {
+    func loadElves () {
+        guard let data = self.loadLineDataFromFile(withName: self.dataFileName) else {
             print("Data not found!")
             return
         }
@@ -38,6 +37,8 @@ class ElfCalories : CodeChallenge {
     }
     
     override func runChallenge() {
+        self.loadElves()
+        
         print("===============================")
         print("2022-12-01: Elf Calorie Counter")
         print("===============================")

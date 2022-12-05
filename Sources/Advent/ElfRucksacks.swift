@@ -63,13 +63,12 @@ class Rucksack {
 class ElfRucksacks : CodeChallenge {
     var rucksacks: [Rucksack] = []
     
-    init(fromDataFile fileName: String = "2022-12-03") {
-        super.init()
-        self.loadRucksackData(withFile: fileName)
+    override init(fromDataFile fileName: String = "2022-12-03") {
+        super.init(fromDataFile: fileName)
     }
     
-    func loadRucksackData(withFile fileName : String) {
-        guard let data = self.loadLineDataFromFile(withName: fileName) else {
+    func loadRucksackData() {
+        guard let data = self.loadLineDataFromFile(withName: self.dataFileName) else {
             return
         }
         
@@ -101,6 +100,8 @@ class ElfRucksacks : CodeChallenge {
     }
     
     override func runChallenge() {
+        self.loadRucksackData()
+        
         print("===================================")
         print("2022-12-03: Elf Rucksacks")
         print("===================================")
