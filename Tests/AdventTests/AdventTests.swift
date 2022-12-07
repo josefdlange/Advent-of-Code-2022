@@ -44,4 +44,18 @@ final class AdventTests: XCTestCase {
         
         XCTAssertEqual(supplyStacks.getStackTops(), "MCD")
     }
+    
+    func testTuningTrouble() throws {
+        let tuningTrouble = TuningTrouble()
+        tuningTrouble.signal = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
+        XCTAssertEqual(tuningTrouble.firstMarkerPosition(), 7)
+        tuningTrouble.signal = "bvwbjplbgvbhsrlpgdmjqwftvncz"
+        XCTAssertEqual(tuningTrouble.firstMarkerPosition(), 5)
+        tuningTrouble.signal = "nppdvjthqldpwncqszvftbrmjlhg"
+        XCTAssertEqual(tuningTrouble.firstMarkerPosition(), 6)
+        tuningTrouble.signal = "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"
+        XCTAssertEqual(tuningTrouble.firstMarkerPosition(), 10)
+        tuningTrouble.signal = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"
+        XCTAssertEqual(tuningTrouble.firstMarkerPosition(), 11)
+    }
 }
