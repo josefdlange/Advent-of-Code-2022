@@ -58,4 +58,13 @@ final class AdventTests: XCTestCase {
         tuningTrouble.signal = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"
         XCTAssertEqual(tuningTrouble.firstMarkerPosition(), 11)
     }
+    
+    func testSpaceSaver() throws {
+        let spaceSaver = SpaceSaver(fromDataFile: "2022-12-07.test")
+        spaceSaver.loadCommands()
+        spaceSaver.processFilesystem()
+        XCTAssertEqual(spaceSaver.getCombinedSizesOfDirectories(belowThreshold: 100000), 95437)
+        XCTAssertEqual(spaceSaver.determineSpaceDeficit(forTotalSpace: 70000000, requiredSpace: 30000000), 8381165)
+        XCTAssertEqual(spaceSaver.findSmallestDirectory(aboveThreshold: 8381165)!.getTotalSize(), 24933642)
+    }
 }
