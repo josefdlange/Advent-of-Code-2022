@@ -67,4 +67,12 @@ final class AdventTests: XCTestCase {
         XCTAssertEqual(spaceSaver.determineSpaceDeficit(forTotalSpace: 70000000, requiredSpace: 30000000), 8381165)
         XCTAssertEqual(spaceSaver.findSmallestDirectory(aboveThreshold: 8381165)!.getTotalSize(), 24933642)
     }
+    
+    func testTreeHouse() throws {
+        let treeHouse = TreeHouse(fromDataFile: "2022-12-08.test")
+        treeHouse.loadForest()
+        
+        XCTAssertEqual(treeHouse.getVisibleTrees().count, 21)
+        XCTAssertEqual(treeHouse.getOptimalScoreTreeScore(), 8)
+    }
 }
