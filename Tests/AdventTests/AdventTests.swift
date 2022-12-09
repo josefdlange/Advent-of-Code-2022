@@ -75,4 +75,39 @@ final class AdventTests: XCTestCase {
         XCTAssertEqual(treeHouse.getVisibleTrees().count, 21)
         XCTAssertEqual(treeHouse.getOptimalScoreTreeScore(), 8)
     }
+    
+    func testRopeBridge() throws {
+        let ropeBridge = RopeBridge(fromDataFile: "2022-12-09.test")
+        ropeBridge.loadMoves()
+        
+        var ropeStates: [[Position]] = [[Position(x: 0, y: 0), Position(x: 0, y: 0)]]
+        
+        for move in ropeBridge.moves {
+            for _ in 0..<move.distance {
+                ropeStates.append(ropeBridge.processMove(inDirection: move.direction, forKnots: ropeStates.last!))
+            }
+        }
+        
+        let uniqueTailPositions = Set(ropeStates.map({$0.last!}))
+        XCTAssertEqual(uniqueTailPositions.count, 13)
+    }
+    
+    func testRopeBridgeLong() throws {
+        let ropeBridge = RopeBridge(fromDataFile: "2022-12-09.long.test")
+        ropeBridge.loadMoves()
+        
+        var ropeStates: [[Position]] = [Array(repeating: Position(x: 0, y: 0), count: 10)]
+        
+        for move in ropeBridge.moves {
+//            print(move)
+            for m in 0..<move.distance {
+                ropeStates.append(ropeBridge.processMove(inDirection: move.direction, forKnots: ropeStates.last!))
+            }
+
+        }
+        
+        let uniqueTailPositions = Set(ropeStates.map({$0.last!}))
+//        print(uniqueTailPositions)
+        XCTAssertEqual(uniqueTailPositions.count, 36)
+    }
 }
