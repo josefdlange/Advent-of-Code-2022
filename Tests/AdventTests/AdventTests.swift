@@ -120,4 +120,21 @@ final class AdventTests: XCTestCase {
         
         print(rayTube.getScanLines().joined(separator: "\n"))
     }
+    
+    func testMonkeyBusiness() throws {
+        let monkeyBusiness = MonkeyBusiness(fromDataFile: "2022-12-11.test")
+        monkeyBusiness.loadMonkeys()
+        monkeyBusiness.processRounds(20)        
+        let targetMonkeys = monkeyBusiness.acquireTargets(numberOfTargets: 2)
+        XCTAssertEqual(targetMonkeys.map({ $0.inspectionCount }).reduce(1, *), 10605)
+    }
+    
+    func testMonkeyBusinessUnbounded() throws {
+        let monkeyBusiness = MonkeyBusiness(fromDataFile: "2022-12-11.test")
+        monkeyBusiness.useAdvancedWorryRelief = true
+        monkeyBusiness.loadMonkeys()
+        monkeyBusiness.processRounds(10000)
+        let targetMonkeys = monkeyBusiness.acquireTargets(numberOfTargets: 2)
+        XCTAssertEqual(targetMonkeys.map({ $0.inspectionCount }).reduce(1, *), 2713310158)
+    }
 }
