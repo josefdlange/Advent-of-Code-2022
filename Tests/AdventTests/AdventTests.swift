@@ -99,15 +99,25 @@ final class AdventTests: XCTestCase {
         var ropeStates: [[Position]] = [Array(repeating: Position(x: 0, y: 0), count: 10)]
         
         for move in ropeBridge.moves {
-//            print(move)
-            for m in 0..<move.distance {
+            for _ in 0..<move.distance {
                 ropeStates.append(ropeBridge.processMove(inDirection: move.direction, forKnots: ropeStates.last!))
             }
 
         }
         
         let uniqueTailPositions = Set(ropeStates.map({$0.last!}))
-//        print(uniqueTailPositions)
         XCTAssertEqual(uniqueTailPositions.count, 36)
+    }
+    
+    func testCathodeRayTube() throws {
+        let rayTube = CathodeRayTube(fromDataFile: "2022-12-10.test")
+        rayTube.loadInstructions()
+        rayTube.processInstructions()
+        
+        let signalStrengths = relevantCycles.map { cycle in rayTube.getRegisterValue(duringCycle: cycle) * cycle }
+        
+        XCTAssertEqual(signalStrengths.reduce(0, +), 13140)
+        
+        print(rayTube.getScanLines().joined(separator: "\n"))
     }
 }

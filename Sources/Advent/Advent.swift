@@ -14,7 +14,8 @@ public struct Advent {
             "2022-12-06": TuningTrouble(),
             "2022-12-07": SpaceSaver(),
             "2022-12-08": TreeHouse(),
-            "2022-12-09": RopeBridge()
+            "2022-12-09": RopeBridge(),
+            "2022-12-10": CathodeRayTube(),
         ]
         
         print("Please enter an advent date (YYYY-MM-DD) to run, 'all' for all dates in order, or anything else to run today's: ")

@@ -148,15 +148,11 @@ class RopeBridge: CodeChallenge {
         
         var newRopeState: [Position] = [newHeadPosition]
         
-        var predecessorBefore = headPosition
         var predecessorAfter = newHeadPosition
         
-        for (idx, knot) in knots.dropFirst().enumerated() {
-//            print("Processing knot \(idx+1)")
+        for knot in knots.dropFirst() {
             if knot.isAdjacentTo(position: predecessorAfter) {
-//                print("Adjacent, \(predecessorBefore), \(predecessorAfter), \(knot)")
                 newRopeState.append(knot)
-                predecessorBefore = knot
                 predecessorAfter = knot
             } else {
                 var moveComponentX: Direction? = nil
@@ -171,28 +167,22 @@ class RopeBridge: CodeChallenge {
                 }
                 
                 if (moveComponentX != nil && moveComponentY != nil) {
-//                    print("Diagonal drag, \(predecessorBefore), \(predecessorAfter), \(knot)")
                     let newKnotPosition = Position(
                         byMovingDiagonallyWithCombinationOfYDirection: moveComponentY!,
                         andXDirection: moveComponentX!,
                         fromPosition: knot
                     )
                     newRopeState.append(newKnotPosition)
-                    predecessorBefore = knot
                     predecessorAfter = newKnotPosition
                 } else {
-//                    print("Orthagonal drag, \(predecessorBefore), \(predecessorAfter), \(knot)")
                     let directionToMove = (moveComponentX != nil ? moveComponentX : moveComponentY)!
                     let newKnot = Position(byMovingInDirection: directionToMove, fromPosition: knot)
                     newRopeState.append(newKnot)
                     predecessorAfter = newKnot
-                    predecessorBefore = knot
                 }
             }
         }
-        
-//        self.printRopeState(withKnots: newRopeState)
-        
+                
         return newRopeState
     }
     
