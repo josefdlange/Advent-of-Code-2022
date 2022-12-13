@@ -137,4 +137,13 @@ final class AdventTests: XCTestCase {
         let targetMonkeys = monkeyBusiness.acquireTargets(numberOfTargets: 2)
         XCTAssertEqual(targetMonkeys.map({ $0.inspectionCount }).reduce(1, *), 2713310158)
     }
+    
+    func testHillClimb() throws {
+        let hillClimb = HillClimb(fromDataFile: "2022-12-12.test")
+        hillClimb.loadGeography()
+        
+        XCTAssertEqual(hillClimb.findShortestPath(fromPointAtXPosition: hillClimb.startPosition.0, yPosition: hillClimb.startPosition.1), 31)
+        
+        XCTAssertEqual(hillClimb.findShortestPath(fromPointAtXPosition: hillClimb.endPosition.0, yPosition: hillClimb.endPosition.1, toPointWithScore: 0), 29)
+    }
 }
